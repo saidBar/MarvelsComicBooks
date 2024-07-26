@@ -45,4 +45,29 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // ViewModel and LiveData.
+    implementation(libs.androidx.lifecycle.extensions)
+
+    // recyclerview.
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.cardview)
+
+    // Paging.
+    implementation(libs.androidx.paging.runtime)
+
+    // Retrofit.
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.retrofit.adapter.rxjava3)
+
+    // Gson
+    implementation(libs.google.gson)
+
+    // Glide
+    implementation(libs.glide)
+
+    // Rx
+    implementation(libs.rxJava)
+    implementation(libs.rxAndroid)
 }
