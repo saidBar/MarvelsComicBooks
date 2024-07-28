@@ -20,6 +20,7 @@ googleGson = "2.11.0"
 glide = "5.0.0-rc01"
 rxJava = "3.1.8"
 rxAndroid = "3.0.2"
+coreSplashscreen = "1.0.1"
 
 
 [libraries]
@@ -42,6 +43,7 @@ google-gson = { group = "com.google.code.gson", name = "gson", version.ref = "go
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 rxJava = { group = "io.reactivex.rxjava3", name = "rxjava", version.ref = "rxJava" }
 rxAndroid = { group = "io.reactivex.rxjava3", name = "rxandroid", version.ref = "rxAndroid" }
+androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "coreSplashscreen" }
 
 
 [plugins]
