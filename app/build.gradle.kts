@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.retrofit.adapter.rxjava3)
+    implementation(libs.okhttp.logging)
 
     // Gson
     implementation(libs.google.gson)
