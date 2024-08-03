@@ -8,10 +8,10 @@ interface MarvelApiService {
 
     @GET("/v1/public/characters")
     fun getCharacters(
-        @Query("apikey") apiKey: String,
         @Query("ts") timestamp: String,
+        @Query("apikey") apiKey: String,
         @Query("hash") hash: String,
         @Query("limit") limit: Int,
-        @Query("offset") offset: Int
+        //@Query("offset") offset: Int,
     ): Call<CharacterDataWrapper>
 }

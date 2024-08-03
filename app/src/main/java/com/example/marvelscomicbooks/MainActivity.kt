@@ -7,11 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.security.MessageDigest
 import java.util.Date
+import org.apache.commons.codec.digest.DigestUtils
 
 class MainActivity : AppCompatActivity() {
     private val publicKey = "e63f84093231091d8b8bdd1a1133c347"
@@ -19,7 +22,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Thread.sleep(5000)
         installSplashScreen()
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
@@ -28,20 +30,31 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        fetchMarvelCharacters()
+        if (isNetworkAvailable()) {
+            fetchMarvelCharacters()
+        } else{
+            Log.e("NetworkError", "No internet connection")
+        }
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return false
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+        return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+
     }
 
     private fun fetchMarvelCharacters() {
         val timestamp = Date().time.toString()
-        val hash = md5("$timestamp$privateKey$publicKey")
+        val hash = md5(timestamp, privateKey, publicKey)
 
 
         val call = RetrofitInstance.api.getCharacters(
-            apiKey = publicKey,
             timestamp = timestamp,
+            apiKey = publicKey,
             hash = hash,
-            limit = 30,
-            offset = 0
+            limit = 5,
         )
 
         call.enqueue(object : Callback<CharacterDataWrapper> {
@@ -67,10 +80,9 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun md5(input: String): String {
-        val md = MessageDigest.getInstance("MD5")
-        val digest = md.digest(input.toByteArray())
-        return digest.joinToString("") { "%02x".format(it) }
+    private fun md5(ts: String, privateKey: String, publicKey: String): String {
+        val input = "$ts$privateKey$publicKey"
+        return DigestUtils.md5Hex(input)
     }
 }
 

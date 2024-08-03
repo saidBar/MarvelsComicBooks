@@ -42,8 +42,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.core.splashscreen)
     implementation(libs.core.splashscreen)
+    implementation(libs.okhttp)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -73,4 +73,7 @@ dependencies {
     // Rx
     implementation(libs.rxJava)
     implementation(libs.rxAndroid)
+
+    // Commons Codec
+    implementation(libs.commons.codec)
 }
