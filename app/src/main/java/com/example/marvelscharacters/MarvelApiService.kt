@@ -1,4 +1,4 @@
-package com.example.marvelscomicbooks
+package com.example.marvelscharacters
 
 import retrofit2.Call
 import retrofit2.http.GET
@@ -12,6 +12,5 @@ interface MarvelApiService {
         @Query("apikey") apiKey: String,
         @Query("hash") hash: String,
         @Query("limit") limit: Int,
-        //@Query("offset") offset: Int,
     ): Call<CharacterDataWrapper>
 }

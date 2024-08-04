@@ -1,4 +1,4 @@
-package com.example.marvelscomicbooks
+package com.example.marvelscharacters
 
 import okhttp3.Interceptor
 import okhttp3.Response

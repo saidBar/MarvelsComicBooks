@@ -23,6 +23,7 @@ rxAndroid = "3.0.2"
 coreSplashscreenVersion = "1.2.0-alpha01"
 commonsCodec = "1.17.1"
 okhttp = "5.0.0-alpha.14"
+hiltAndroid = "2.51.1"
 
 
 [libraries]
@@ -49,8 +50,12 @@ rxAndroid = { group = "io.reactivex.rxjava3", name = "rxandroid", version.ref = 
 core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "coreSplashscreenVersion" }
 commons-codec = { group = "commons-codec", name = "commons-codec", version.ref = "commonsCodec" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltAndroid" }
+hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hiltAndroid" }
+
 
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+

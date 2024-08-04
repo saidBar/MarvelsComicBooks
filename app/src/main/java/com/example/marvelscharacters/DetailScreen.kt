@@ -1,4 +1,4 @@
-package com.example.marvelscomicbooks
+package com.example.marvelscharacters
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

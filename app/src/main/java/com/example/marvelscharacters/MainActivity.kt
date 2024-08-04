@@ -1,4 +1,4 @@
-package com.example.marvelscomicbooks
+package com.example.marvelscharacters
 
 import android.os.Bundle
 import android.util.Log
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             timestamp = timestamp,
             apiKey = publicKey,
             hash = hash,
-            limit = 5,
+            limit = 10,
         )
 
         call.enqueue(object : Callback<CharacterDataWrapper> {

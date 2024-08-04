@@ -1,14 +1,16 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
-    namespace = "com.example.marvelscomicbooks"
+    namespace = "com.example.marvelscharacters"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.marvelscomicbooks"
+        applicationId = "com.example.marvelscharacters"
         minSdk = 28
         targetSdk = 34
         versionCode = 1
@@ -29,51 +31,67 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+
+        buildFeatures {
+            viewBinding = true
+        }
+
+        hilt {
+            enableAggregatingTask = true
+        }
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
+
+    dependencies {
+
+        implementation(libs.androidx.core.ktx)
+        implementation(libs.androidx.appcompat)
+        implementation(libs.material)
+        implementation(libs.androidx.activity)
+        implementation(libs.androidx.constraintlayout)
+        implementation(libs.core.splashscreen)
+        implementation(libs.okhttp)
+        testImplementation(libs.junit)
+        androidTestImplementation(libs.androidx.junit)
+        androidTestImplementation(libs.androidx.espresso.core)
+
+        // ViewModel and LiveData.
+        implementation(libs.androidx.lifecycle.extensions)
+
+        // recyclerview.
+        implementation(libs.androidx.recyclerview)
+        implementation(libs.androidx.cardview)
+
+        // Paging.
+        implementation(libs.androidx.paging.runtime)
+
+        // Retrofit.
+        implementation(libs.retrofit)
+        implementation(libs.retrofit.converter.gson)
+        implementation(libs.retrofit.adapter.rxjava3)
+        implementation(libs.okhttp.logging)
+
+        // Gson
+        implementation(libs.google.gson)
+
+        // Glide
+        implementation(libs.glide)
+
+        // Rx
+        implementation(libs.rxJava)
+        implementation(libs.rxAndroid)
+
+        // Commons Codec
+        implementation(libs.commons.codec)
+
+        // Dagger Hilt
+        implementation(libs.hilt.android)
+        kapt(libs.hilt.android.compiler)
     }
-}
 
-dependencies {
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.core.splashscreen)
-    implementation(libs.okhttp)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-
-    // ViewModel and LiveData.
-    implementation(libs.androidx.lifecycle.extensions)
-
-    // recyclerview.
-    implementation(libs.androidx.recyclerview)
-    implementation(libs.androidx.cardview)
-
-    // Paging.
-    implementation(libs.androidx.paging.runtime)
-
-    // Retrofit.
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.gson)
-    implementation(libs.retrofit.adapter.rxjava3)
-    implementation(libs.okhttp.logging)
-
-    // Gson
-    implementation(libs.google.gson)
-
-    // Glide
-    implementation(libs.glide)
-
-    // Rx
-    implementation(libs.rxJava)
-    implementation(libs.rxAndroid)
-
-    // Commons Codec
-    implementation(libs.commons.codec)
+    kapt {
+        correctErrorTypes = true
+    }
 }
