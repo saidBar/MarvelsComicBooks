@@ -10,6 +10,9 @@ import androidx.core.view.WindowInsetsCompat
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import androidx.fragment.app.commit
+import com.example.marvelscharacters.response.CharacterDataWrapper
+import com.example.marvelscharacters.ui.CharactersFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,15 +35,21 @@ class MainActivity : AppCompatActivity() {
         }
         if (isNetworkAvailable()) {
             fetchMarvelCharacters()
-        } else{
+        } else {
             Log.e("NetworkError", "No internet connection")
         }
+        supportFragmentManager.commit {
+            replace(R.id.charactersFragment, CharactersFragment())
+        }
+
     }
 
     private fun isNetworkAvailable(): Boolean {
-        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val network = connectivityManager.activeNetwork ?: return false
-        val networkCapabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+        val networkCapabilities =
+            connectivityManager.getNetworkCapabilities(network) ?: return false
         return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
 
     }

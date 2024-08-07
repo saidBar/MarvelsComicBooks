@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 
+
 class SplashScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +20,7 @@ class SplashScreenActivity : AppCompatActivity() {
         // Delay for 5 seconds before launching the main activity
         Handler(Looper.getMainLooper()).postDelayed({
             // Start MainActivity
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, splashScreen::class.java)
             startActivity(intent)
             // Close SplashActivity
             finish()

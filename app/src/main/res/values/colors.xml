@@ -7,4 +7,8 @@
     <color name="another_dark_gray">#212121</color>
     <color name="light_gray">#919191</color>
     <color name="marvel_red">#ED1D24</color>
+    <color name="marvel_red1">#BE171D</color>
+    <color name="marvel_red2">#8E1116</color>
+    <color name="marvel_red3">#5F0C0E</color>
+    <color name="marvel_red4">#2F0607</color>
 </resources>

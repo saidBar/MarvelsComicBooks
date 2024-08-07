@@ -1,4 +1,4 @@
-package com.example.marvelscharacters
+package com.example.marvelscharacters.response
 
 data class CharacterDataWrapper(
     val code: Int,
