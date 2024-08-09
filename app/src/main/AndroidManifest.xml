@@ -16,7 +16,7 @@
         android:theme="@style/Theme.MarvelsComicBooks"
         tools:targetApi="31">
         <activity
-            android:name=".DetailScreen"
+            android:name=".old.DetailScreen"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

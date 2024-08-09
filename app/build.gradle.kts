@@ -37,6 +37,7 @@ android {
 
         buildFeatures {
             viewBinding = true
+            buildConfig = true
         }
 
         hilt {
@@ -76,9 +77,6 @@ android {
         // Gson
         implementation(libs.google.gson)
 
-        // Glide
-        implementation(libs.glide)
-
         // Rx
         implementation(libs.rxJava)
         implementation(libs.rxAndroid)
@@ -87,8 +85,23 @@ android {
         implementation(libs.commons.codec)
 
         // Dagger Hilt
-        implementation(libs.hilt.android)
-        kapt(libs.hilt.android.compiler)
+        //implementation(libs.hilt.android)
+        implementation (libs.hilt.android)
+        kapt(libs.hilt.compiler)
+        // For instrumentation tests
+        androidTestImplementation  (libs.hilt.android.testing)
+        kaptAndroidTest (libs.hilt.compiler)
+
+        // For local unit tests
+        testImplementation (libs.hilt.android.testing)
+        kaptTest (libs.hilt.compiler)
+
+        //Glide
+        implementation(libs.glide)
+
+        implementation(libs.androidx.navigation.fragment.ktx)
+        implementation(libs.androidx.navigation.ui.ktx)
+        implementation(libs.androidx.gridlayout)
 
     }
 
@@ -96,8 +109,4 @@ android {
         correctErrorTypes = true
     }
 }
-dependencies {
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.androidx.gridlayout)
-}
+
