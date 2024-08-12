@@ -1,8 +1,8 @@
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
+    android:layout_width="175dp"
+    android:layout_height="275dp"
     android:layout_margin="8dp"
     android:layout_weight="1"
     app:cardCornerRadius="8dp"
@@ -16,21 +16,25 @@
         <ImageView
             android:id="@+id/characterImageView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:importantForAccessibility="no"
             android:scaleType="centerCrop" />
 
         <!-- Dark Overlay -->
         <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#80000000"/>
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:background="#80000000"
+            android:layout_margin="8dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            />
 
         <!-- Character Name -->
         <TextView
             android:id="@+id/characterName"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_margin="8dp"
@@ -42,4 +46,4 @@
 
     </RelativeLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

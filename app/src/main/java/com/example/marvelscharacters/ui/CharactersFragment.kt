@@ -6,7 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.marvelscharacters.adapter.CharactersAdapter
 import com.example.marvelscharacters.databinding.FragmentCharactersBinding
 import com.example.marvelscharacters.repository.ApiRepository
@@ -34,9 +35,8 @@ class CharactersFragment : Fragment() {
     lateinit var characterAdapter: CharactersAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         binding = FragmentCharactersBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -49,19 +49,27 @@ class CharactersFragment : Fragment() {
         val hash = md5(timestamp, PRIVATE_API_KEY, PUBLIC_API_KEY)
         binding.progressBar.visibility = View.VISIBLE
 
-        apiRepository.getCharactersList(timestamp, PUBLIC_API_KEY, hash, 1)
+        apiRepository.getCharactersList(timestamp, PUBLIC_API_KEY, hash, 3)
             ?.enqueue(object : Callback<CharacterDataWrapper> {
                 override fun onResponse(
-                    p0: Call<CharacterDataWrapper>,
-                    p1: Response<CharacterDataWrapper>
+                    p0: Call<CharacterDataWrapper>, p1: Response<CharacterDataWrapper>
                 ) {
                     binding.progressBar.visibility = View.GONE
                     when (p1.code()) {
                         200 -> {
                             p1.body()?.let { itBody ->
-                                characterAdapter.differ.submitList(itBody.data.results)
+                                val characters = itBody.data.results
+                                characterAdapter.differ.submitList(characters)
+                                characterAdapter.setOnItemClickListener { character ->
+                                    val direction =
+                                        CharactersFragmentDirections.actionCharactersFragmentToCharacterDetailsFragment(
+                                            character.id
+                                        )
+                                    findNavController().navigate(direction)
+                                }
                             }
                         }
+
                         409 -> showToast("Error 409. ${p1.message()}")
                         401 -> showToast("Error 401. ${p1.message()}")
                         403 -> showToast("Error 403. ${p1.message()}")
@@ -78,7 +86,7 @@ class CharactersFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.rvCharacters.apply {
-            layoutManager = LinearLayoutManager(requireContext())
+            layoutManager = GridLayoutManager(context, 2)
             adapter = characterAdapter
         }
     }

@@ -1,5 +1,6 @@
 package com.example.marvelscharacters.response
 
+
 data class CharacterDataWrapper(
     val code: Int,
     val status: String,
@@ -45,6 +46,7 @@ data class ComicList(
     val collectionURI: String?,
     val items: List<ComicSummary>
 )
+
 
 data class ComicSummary(
     val resourceURI: String?,

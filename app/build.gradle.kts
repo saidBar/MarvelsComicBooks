@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("androidx.navigation.safeargs.kotlin")
+    id ("kotlin-parcelize")
 }
 
 android {
@@ -98,15 +100,19 @@ android {
 
         //Glide
         implementation(libs.glide)
+        kapt(libs.glide.kapt)
 
         implementation(libs.androidx.navigation.fragment.ktx)
         implementation(libs.androidx.navigation.ui.ktx)
         implementation(libs.androidx.gridlayout)
+
 
     }
 
     kapt {
         correctErrorTypes = true
     }
+}
+dependencies {
 }
 

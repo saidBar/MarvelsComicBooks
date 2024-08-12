@@ -11,7 +11,9 @@ class ApiRepository @Inject constructor(
 
     fun getCharactersList(ts: String, apiKey: String, hash: String, limit: Int) =
         apiRepository?.getCharactersList(ts, apiKey, hash, limit)
-    fun getCharacter(characterId: Int, apiKey: String) =
-        apiRepository?.getCharacter(characterId, apiKey)
+    fun getCharacter(characterId: Int, apiKey: String,ts: String, hash: String) =
+        apiRepository?.getCharacter(characterId, apiKey, ts, hash )
+    fun getCharacterComics(characterId: Int, ts: String, apiKey: String, hash: String, format: String, formatType: String, dateRange: String, orderBy: String, limit: Int) =
+        apiRepository?.getCharacterComics(characterId, ts,apiKey, hash, format, formatType, dateRange, orderBy, limit, )
 
 }
