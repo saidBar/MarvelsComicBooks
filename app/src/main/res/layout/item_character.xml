@@ -6,40 +6,38 @@
     android:layout_margin="8dp"
     android:layout_weight="1"
     app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    app:cardElevation="4dp"
+    android:background="@color/light_gray">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Character Image -->
         <ImageView
             android:id="@+id/characterImageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:importantForAccessibility="no"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"/>
 
-        <!-- Dark Overlay -->
         <View
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:background="#80000000"
             android:layout_margin="8dp"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            />
+            android:layout_centerHorizontal="true"/>
 
-        <!-- Character Name -->
         <TextView
             android:id="@+id/characterName"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_margin="8dp"
+            android:gravity="bottom"
             android:textColor="@android:color/white"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:maxLines="1"
             android:ellipsize="end"/>

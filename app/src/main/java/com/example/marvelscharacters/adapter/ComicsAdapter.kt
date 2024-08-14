@@ -37,7 +37,7 @@ class ComicsAdapter @Inject constructor() :
                 val comicThumbnail = comic.thumbnail?.fullPath
 
                 GlideApp.with(itemView).load(comicThumbnail)
-                    .transition(DrawableTransitionOptions.withCrossFade()).centerCrop()
+                    .transition(DrawableTransitionOptions.withCrossFade()).fitCenter()
                     .placeholder(R.drawable.poster_placeholder).error(R.drawable.icon_no_background)
                     .into(comicThumbnailImageView)
             }

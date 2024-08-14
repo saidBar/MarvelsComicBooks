@@ -1,52 +1,90 @@
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:background="@color/black"
     android:fillViewport="true">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/characterImageView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:importantForAccessibility="no"
-            android:scaleType="centerCrop" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/characterName"
+            <ImageView
+                android:id="@+id/characterImageView"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/characterName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:padding="16dp"
+                android:textColor="@color/marvel_red"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/characterDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="16dp"
+                android:textColor="@color/light_gray"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+
+                <TextView
+                    android:id="@+id/comicsLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:text="Comics:"
+                    android:textColor="@color/marvel_red"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <ProgressBar
+                    android:id="@+id/comicsProgressBar"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:indeterminateTint="@color/marvel_red"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/comicsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/black"
+                android:nestedScrollingEnabled="false" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/characterDetailsProgressBar"
+            style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp" />
-
-        <TextView
-            android:id="@+id/characterDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="16sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Comics:"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/comicsRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:nestedScrollingEnabled="false" />
-    </LinearLayout>
+            android:layout_centerInParent="true"
+            android:indeterminateTint="@color/marvel_red" />
+    </RelativeLayout>
 
 </androidx.core.widget.NestedScrollView>

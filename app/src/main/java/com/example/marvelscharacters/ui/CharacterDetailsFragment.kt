@@ -44,6 +44,9 @@ class CharacterDetailsFragment : Fragment() {
 
     private val hash = md5(timestamp, PRIVATE_API_KEY, PUBLIC_API_KEY)
 
+    private var characterRequest: Call<CharacterDetailDataWrapper>? = null
+    private var comicsRequest: Call<ComicDataWrapper>? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -61,34 +64,38 @@ class CharacterDetailsFragment : Fragment() {
         fetchCharacterDetails(characterId)
         fetchCharacterComics(characterId, todayDate)
 
-        //<editor-fold desc="Get comics list">
-
-        //</editor-fold>
-        //}
     }
 
     private fun fetchCharacterDetails(characterId: Int) {
+        showFragmentProgressBar(true)
 
-        apiRepository.getCharacter(characterId, PUBLIC_API_KEY, timestamp, hash)
-            ?.enqueue(object : Callback<CharacterDetailDataWrapper> {
-                override fun onResponse(
-                    p0: Call<CharacterDetailDataWrapper>, p1: Response<CharacterDetailDataWrapper>
-                ) {
-                    p1.body()?.let { itBody ->
-                        val character = itBody.data?.results?.get(0)
-                        character?.let { bindCharacterDetails(character) }
-                    }
-                }
+        characterRequest = apiRepository.getCharacter(characterId, PUBLIC_API_KEY, timestamp, hash)
+        characterRequest?.enqueue(object : Callback<CharacterDetailDataWrapper> {
+            override fun onResponse(
+                p0: Call<CharacterDetailDataWrapper>, p1: Response<CharacterDetailDataWrapper>
+            ) {
+                showFragmentProgressBar(false)
+                showComicsProgressBar(true)
+                binding.comicsLabel.visibility = View.VISIBLE
 
-                override fun onFailure(p0: Call<CharacterDetailDataWrapper>, p1: Throwable) {
-                    Toast.makeText(context, "Error loading character details", Toast.LENGTH_SHORT)
-                        .show()
+                characterRequest = null
+                p1.body()?.let { itBody ->
+                    val character = itBody.data?.results?.get(0)
+                    character?.let { bindCharacterDetails(character) }
                 }
-            })
+            }
+
+            override fun onFailure(p0: Call<CharacterDetailDataWrapper>, p1: Throwable) {
+                showFragmentProgressBar(false)
+                characterRequest = null
+                Toast.makeText(context, "Error loading character details", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        })
     }
 
-    private fun fetchCharacterComics(characterId: Int, todayDate: String){
-        apiRepository.getCharacterComics(
+    private fun fetchCharacterComics(characterId: Int, todayDate: String) {
+        comicsRequest = apiRepository.getCharacterComics(
             characterId,
             timestamp,
             PUBLIC_API_KEY,
@@ -96,26 +103,27 @@ class CharacterDetailsFragment : Fragment() {
             "comic",
             "comic",
             "2005-01-01,${todayDate}",
-            "onsaleDate",
+            "-onsaleDate",
             10
-        )?.enqueue(object : Callback<ComicDataWrapper> {
+        )
+        comicsRequest?.enqueue(object : Callback<ComicDataWrapper> {
             override fun onResponse(
                 p0: Call<ComicDataWrapper>, p1: Response<ComicDataWrapper>
             ) {
-                when (p1.code()) {
-                    200 -> {
-                        p1.body()?.let { itBody ->
-                            val comics = itBody.data?.results
-                            comicAdapter.differ.submitList(comics)
-                        }
+                showComicsProgressBar(false)
+                comicsRequest = null
+                if (p1.code() == 200) {
+                    p1.body()?.let { itBody ->
+                        val comics = itBody.data?.results
+                        comicAdapter.differ.submitList(comics)
                     }
-                    else -> {
-                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
-                    }
+                } else {
+                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(p0: Call<ComicDataWrapper>, p1: Throwable) {
+                showComicsProgressBar(false)
                 Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
             }
         })
@@ -124,7 +132,10 @@ class CharacterDetailsFragment : Fragment() {
     private fun bindCharacterDetails(character: CharacterDetail) {
         binding.characterName.text = character.name
         binding.characterDescription.text = character.description
-        GlideApp.with(this).load(character.thumbnail?.fullPath).into(binding.characterImageView)
+        GlideApp.with(this)
+            .load(character.thumbnail?.fullPath)
+            .fitCenter()
+            .into(binding.characterImageView)
     }
 
 
@@ -139,4 +150,20 @@ class CharacterDetailsFragment : Fragment() {
         val input = "$ts$privateKey$publicKey"
         return DigestUtils.md5Hex(input)
     }
+
+    // Cancel the requests if the user navigates away from this fragment
+    override fun onDestroyView() {
+        super.onDestroyView()
+        characterRequest?.cancel()
+        comicsRequest?.cancel()
+    }
+
+    private fun showFragmentProgressBar(show: Boolean) {
+        binding.characterDetailsProgressBar.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    private fun showComicsProgressBar(show: Boolean) {
+        binding.comicsProgressBar.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
 }
