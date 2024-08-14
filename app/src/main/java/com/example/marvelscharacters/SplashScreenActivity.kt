@@ -17,13 +17,10 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash_screen)
         enableEdgeToEdge()
 
-        // Delay for 5 seconds before launching the main activity
         Handler(Looper.getMainLooper()).postDelayed({
-            // Start MainActivity
             val intent = Intent(this, splashScreen::class.java)
             startActivity(intent)
-            // Close SplashActivity
             finish()
-        }, 5000) // 5000 milliseconds = 5 seconds
+        }, 5000)
     }
 }

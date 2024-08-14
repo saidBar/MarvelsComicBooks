@@ -59,16 +59,14 @@ android {
         testImplementation(libs.junit)
         androidTestImplementation(libs.androidx.junit)
         androidTestImplementation(libs.androidx.espresso.core)
+        implementation(libs.androidx.navigation.fragment.ktx)
+        implementation(libs.androidx.navigation.ui.ktx)
+        implementation(libs.androidx.gridlayout)
 
-        // ViewModel and LiveData.
-        implementation(libs.androidx.lifecycle.extensions)
 
         // recyclerview.
         implementation(libs.androidx.recyclerview)
         implementation(libs.androidx.cardview)
-
-        // Paging.
-        implementation(libs.androidx.paging.runtime)
 
         // Retrofit.
         implementation(libs.retrofit)
@@ -78,10 +76,6 @@ android {
 
         // Gson
         implementation(libs.google.gson)
-
-        // Rx
-        implementation(libs.rxJava)
-        implementation(libs.rxAndroid)
 
         // Commons Codec
         implementation(libs.commons.codec)
@@ -93,7 +87,6 @@ android {
         // For instrumentation tests
         androidTestImplementation  (libs.hilt.android.testing)
         kaptAndroidTest (libs.hilt.compiler)
-
         // For local unit tests
         testImplementation (libs.hilt.android.testing)
         kaptTest (libs.hilt.compiler)
@@ -101,18 +94,10 @@ android {
         //Glide
         implementation(libs.glide)
         kapt(libs.glide.kapt)
-
-        implementation(libs.androidx.navigation.fragment.ktx)
-        implementation(libs.androidx.navigation.ui.ktx)
-        implementation(libs.androidx.gridlayout)
-
-
     }
 
     kapt {
         correctErrorTypes = true
     }
-}
-dependencies {
 }
 

@@ -2,7 +2,6 @@ package com.example.marvelscharacters.di
 
 import com.example.marvelscharacters.BuildConfig
 import com.example.marvelscharacters.api.MarvelApiService
-import com.example.marvelscharacters.utils.Constants.PUBLIC_API_KEY
 import com.example.marvelscharacters.utils.Constants.BASE_URL
 import com.example.marvelscharacters.utils.Constants.NETWORK_TIMEOUT
 import com.google.gson.Gson
