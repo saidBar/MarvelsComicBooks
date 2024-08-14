@@ -29,7 +29,7 @@
     class CharactersFragment : Fragment() {
 
         private lateinit var binding: FragmentCharactersBinding
-        private var limit = 10
+        private var limit = 30
         private var offset = 0
         private var isLoading = false
 
